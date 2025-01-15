@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { Poppins } from 'next/font/google'
 import HideSidebarButton from '@/components/hideSidebar'
-import RouteLink from '@/components/RouteLink'
+import MenuSidebar from '@/components/MenuSidebar'
 
 const poppins = Poppins({
   variable: '--font-poppins',
@@ -39,21 +39,8 @@ export default function RootLayoutAdmin({
           id="sidebar_menu"
           className="grid grid-cols-[200px_1fr] h-[calc(100vh-56px)] duration-300 ease-in-out"
         >
-          <div className="w-auto ">
-            <ul className="p-3 text-nowrap ">
-              <li className="p-3 w-full">
-                <RouteLink href="/menu1" active className="p-3 w-full">
-                  Menu 1
-                </RouteLink>
-                {/* <RouteLink href="/menu2">Menu 2</RouteLink> */}
-              </li>
-              <li className="p-3">
-                <RouteLink href="/menu1" active className="p-3 w-full">
-                  Menu 1
-                </RouteLink>
-                {/* <RouteLink href="/menu2">Menu 2</RouteLink> */}
-              </li>
-            </ul>
+          <div className="w-full">
+            <MenuSidebar />
           </div>
           <div className="h-full w-full p-3 bg-white border-l-2 border-gray-200">
             {children}

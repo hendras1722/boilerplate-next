@@ -12,8 +12,7 @@ export default function RouteLink({
   active?: boolean
   className?: string
 }>) {
-  console.log(active)
-  const cnActive = active ? 'bg-blue-600 text-white font-bold' : ''
+  const cnActive = active ? 'text-blue-600 text-black font-bold' : ''
   return (
     <Link href={href} className={cn(cnActive, ' no-underline ', className)}>
       {children}
