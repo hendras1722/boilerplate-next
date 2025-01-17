@@ -1,4 +1,4 @@
-import HideSidebarButton from '@/components/HideSidebar'
+import HideSidebar from '../components/sidebar'
 
 export default function Navbar() {
   return (
@@ -12,7 +12,7 @@ export default function Navbar() {
         </nav>
       </div>
       <div className="h-16 w-auto border-l-2 border-b-2 border-gray-200 flex items-center pl-5">
-        <HideSidebarButton />
+        <HideSidebar />
       </div>
     </div>
   )
