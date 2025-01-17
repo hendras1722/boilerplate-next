@@ -1,4 +1,4 @@
-import { SecurityConfig } from '@/type/config'
+import { SecurityConfig } from '@/type/config_security'
 
 export class SecurityHeaders {
   private readonly headers: Headers

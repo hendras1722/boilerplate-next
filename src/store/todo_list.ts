@@ -1,6 +1,18 @@
 import { create } from 'zustand'
 
-export const useStore = create((set) => ({
+interface Store {
+  count: number
+  inc: (action: string) => void
+}
+export const useStore = create<Store>((set) => ({
   count: 1,
-  inc: () => set((state: { count: number }) => ({ count: state.count + 1 })),
+  inc: (evt: string) =>
+    set((state: { count: number }) => {
+      console.log(evt, 'inivet')
+      if (evt === 'plus') {
+        return { count: state.count + 1 }
+      } else {
+        return { count: state.count - 1 }
+      }
+    }),
 }))

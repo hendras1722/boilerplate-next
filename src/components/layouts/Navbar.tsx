@@ -1,4 +1,4 @@
-import HideSidebar from '../components/sidebar'
+import HideSidebar from '../sidebar'
 
 export default function Navbar() {
   return (

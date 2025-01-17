@@ -4,7 +4,7 @@ import { FaHouse } from 'react-icons/fa6'
 import { cn } from '@/utils/lib'
 import { useRoute } from '@/utils/useRoute'
 import ArrayMap from './ArrayMap'
-import RouteLink from './RouteLink'
+import RouteLink from '@/composable/route'
 
 export default function MenuSidebar() {
   const menu = [

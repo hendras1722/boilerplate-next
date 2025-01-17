@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { defaultConfig } from './lib/config_lib'
-import { SecurityConfig } from './type/config'
+import { defaultConfig } from '@/configs/config_security'
+import { SecurityConfig } from '@/type/config_security'
 
 function setSecurityHeaders(response: NextResponse, config: SecurityConfig) {
   const { headers } = response
@@ -71,19 +71,15 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(url)
   }
 
-  // Case 1: No token and trying to access protected route
   if (!token && isProtectedRoute && pathname.includes('/admin/user')) {
-    request.cookies.delete('token')
+    // request.cookies.delete('token')
 
     const loginUrl = new URL('/login', request.url)
-    // Add the original URL as a redirect parameter
-    loginUrl.searchParams.set('redirect', pathname)
-    return NextResponse.redirect(loginUrl)
+    // loginUrl.searchParams.set('redirect', pathname)
+    return NextResponse.redirect(loginUrl, { status: 308 })
   }
 
-  // Case 2: Has token and trying to access login page
   if (token && isLoginPage) {
-    // Check if there's a redirect URL in the query params
     const redirectUrl = new URL(request.url).searchParams.get('redirect')
     const targetUrl = redirectUrl ?? '/admin/dashboard'
     return NextResponse.redirect(new URL(targetUrl, request.url))
