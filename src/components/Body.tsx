@@ -1,6 +1,6 @@
 'use client'
 
-import { ThemeProvider } from '../theme-provider'
+import { ThemeProvider } from '@/components/theme-provider'
 
 export default function Body({
   children,
