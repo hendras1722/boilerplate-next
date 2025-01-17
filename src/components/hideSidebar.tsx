@@ -1,7 +1,7 @@
-// components/HideSidebarButton.tsx
 'use client'
 
 import { useState } from 'react'
+import { FaAlignJustify } from 'react-icons/fa6'
 
 export default function HideSidebarButton() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true)
@@ -9,24 +9,30 @@ export default function HideSidebarButton() {
     setIsSidebarOpen((prevState) => !prevState)
     const sidebar = document.getElementById('sidebar_nav')
     const menu = document.getElementById('sidebar_menu')
+    const navbar = document.getElementById('navbar')
     if (isSidebarOpen) {
-      if (sidebar && menu) {
-        menu.classList.remove('grid-cols-[200px_1fr]')
+      if (sidebar && menu && navbar) {
+        navbar.classList.add('translate-x-[-255px]')
+        navbar.classList.remove('translate-x-0')
+        menu.classList.remove('grid-cols-[255px_1fr]')
         menu.classList.add('grid-cols-[53px_1fr]')
-        sidebar.classList.remove('grid-cols-[200px_1fr]')
+        sidebar.classList.remove('grid-cols-[255px_1fr]')
         sidebar.classList.add('grid-cols-[53px_1fr]')
       }
-    } else if (sidebar && menu) {
+    } else if (sidebar && menu && navbar) {
+      navbar.classList.add('translate-x-0')
+      navbar.classList.remove('translate-x-[-255px]')
+
       menu.classList.remove('grid-cols-[53px_1fr]')
-      menu.classList.add('grid-cols-[200px_1fr]')
+      menu.classList.add('grid-cols-[255px_1fr]')
       sidebar.classList.remove('grid-cols-[53px_1fr]')
-      sidebar.classList.add('grid-cols-[200px_1fr]')
+      sidebar.classList.add('grid-cols-[255px_1fr]')
     }
   }
 
   return (
     <button onClick={hideSidebar} className="p-2 bg-gray-200 rounded">
-      Hide
+      <FaAlignJustify />
     </button>
   )
 }

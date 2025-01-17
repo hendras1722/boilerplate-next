@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { cn } from '../../utils/lib'
+import { cn } from '@/utils/lib'
 
 export default function RouteLink({
   href,

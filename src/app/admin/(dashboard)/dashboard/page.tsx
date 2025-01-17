@@ -1,7 +1,34 @@
+'use client'
+
+import Divider from '@/components/divider'
+import DarkMode from '@/components/DarkMode'
+
 export default function Dashboard() {
   return (
-    <div>
-      <div className="text-red-400 ">Hello worldqwe</div>
+    <div className="dark:text-white">
+      <h1 className="font-bold mb-3">
+        Thank you for clone my boilerplate next 15
+      </h1>
+      <Divider></Divider>
+      <div>
+        <h2 className="my-3 font-semibold">Feature</h2>
+        <div className="ml-5">
+          <ul className="list-disc">
+            <li>Store zustand support</li>
+            <li>Component mapping using components</li>
+            <li>Condition if else using components</li>
+            <li>Talwinds support</li>
+            <li>Login style</li>
+            <li>Settings rewrite api</li>
+            <li>Settings next image</li>
+            <li>Settings middleware</li>
+            <li>
+              Support dark mode <DarkMode />
+            </li>
+            <li>Next security settings in middleware</li>
+          </ul>
+        </div>
+      </div>
     </div>
   )
 }

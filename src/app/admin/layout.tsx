@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { Poppins } from 'next/font/google'
-import HideSidebarButton from '@/components/hideSidebar'
 import MenuSidebar from '@/components/MenuSidebar'
+import Navbar from '@/components/Layout/Navbar'
 
 const poppins = Poppins({
   variable: '--font-poppins',
@@ -20,30 +20,18 @@ export default function RootLayoutAdmin({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={`${poppins.variable} antialiased`}>
-        <div
-          id="sidebar_nav"
-          className="grid grid-cols-[200px_1fr] duration-300 ease-in-out"
-        >
-          <div className="h-14 w-auto  border-b-2 border-gray-200 ">
-            <nav className="p-3">
-              <div>Logo</div>
-            </nav>
-          </div>
-          <div className="h-14 w-auto border-l-2 border-b-2 border-gray-200">
-            <HideSidebarButton />
-          </div>
-        </div>
+        <Navbar />
         <div
           id="sidebar_menu"
-          className="grid grid-cols-[200px_1fr] h-[calc(100vh-56px)] duration-300 ease-in-out"
+          className="grid grid-cols-[255px_1fr] h-[calc(100vh-56px)] duration-300 ease-in-out"
         >
           <div className="w-full">
             <MenuSidebar />
           </div>
-          <div className="h-full w-full p-3 bg-white border-l-2 border-gray-200">
-            {children}
+          <div className="h-full w-full bg-white border-l-2 border-gray-200 relative z-10 p-5 overflow-auto dark:bg-black dark:shadow-white dark:shadow-lg dark:border-white">
+            <div className="shadow-md p-5 rounded-lg">{children}</div>
           </div>
         </div>
       </body>
