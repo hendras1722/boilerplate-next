@@ -1,4 +1,4 @@
-import HideSidebarButton from '@/components/HideSidebar'
+import HideSidebarButton from '../HideSidebar'
 
 export default function Navbar() {
   return (
