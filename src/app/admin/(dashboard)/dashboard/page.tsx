@@ -35,6 +35,7 @@ export default function Dashboard() {
             <li>Next security settings in middleware</li>
             <li>Support using shadcn/ui</li>
             <li>Form using react hook form</li>
+            <li>Support React Icon</li>
           </ul>
         </div>
       </div>

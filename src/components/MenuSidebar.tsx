@@ -9,7 +9,7 @@ import RouteLink from '@/composable/route'
 export default function MenuSidebar() {
   const menu = [
     { name: 'Dashboard', href: '/admin/dashboard' },
-    { name: 'Menu 2', href: '/admin/user' },
+    { name: 'Table', href: '/admin/table' },
   ]
   const route = useRoute()
   return (
