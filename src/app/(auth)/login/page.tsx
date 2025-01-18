@@ -71,7 +71,7 @@ export default function Login() {
               />
               <Button
                 type="submit"
-                className="my-8 w-full dark:bg-inherit text-inherit dark:border dark:border-inherit dark:hover:bg-white dark:hover:text-black"
+                className="my-8 w-full dark:bg-inherit  dark:border dark:border-inherit dark:hover:bg-white dark:hover:text-black text-white"
               >
                 Submit
               </Button>

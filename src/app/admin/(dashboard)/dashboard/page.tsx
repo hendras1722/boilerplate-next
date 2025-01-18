@@ -37,6 +37,12 @@ export default function Dashboard() {
             <li>Form using react hook form</li>
             <li>Support React Icon</li>
             <li>Format date using date-fns</li>
+            <li>Component table dynamic using shadcn/ui</li>
+            <li>
+              add composable (useLocalStorage, useDebounce, useBreakpoints,
+              useDraggable, useFetch){' '}
+              <span className="text-red-500 font-bold">Version 1.0.1</span>
+            </li>
           </ul>
         </div>
       </div>
