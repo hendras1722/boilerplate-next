@@ -36,6 +36,7 @@ export default function Dashboard() {
             <li>Support using shadcn/ui</li>
             <li>Form using react hook form</li>
             <li>Support React Icon</li>
+            <li>Format date using date-fns</li>
           </ul>
         </div>
       </div>

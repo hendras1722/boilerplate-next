@@ -1,17 +1,20 @@
 'use client'
 
-import { FaHouse } from 'react-icons/fa6'
 import { cn } from '@/utils/lib'
-import { useRoute } from '@/utils/useRoute'
 import ArrayMap from './ArrayMap'
 import RouteLink from '@/composable/route'
+import { useRoute } from '@/composable/useRoute'
 
-export default function MenuSidebar() {
-  const menu = [
-    { name: 'Dashboard', href: '/admin/dashboard' },
-    { name: 'Table', href: '/admin/table' },
-  ]
-  const route = useRoute()
+interface MenuItem {
+  name: string
+  href: string
+  icon: () => React.ReactElement
+}
+
+export default function MenuSidebar({
+  menu,
+  route,
+}: Readonly<{ menu: MenuItem[]; route: ReturnType<typeof useRoute> }>) {
   return (
     <div className="mt-8 relative">
       <ArrayMap
@@ -33,9 +36,7 @@ export default function MenuSidebar() {
                 'text-nowrap text-lg flex w-full h-full items-center gap-3 pl-1'
               )}
             >
-              <div>
-                <FaHouse />
-              </div>
+              <div>{item.icon()}</div>
               {item.name}
             </div>
           </RouteLink>

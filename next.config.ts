@@ -16,15 +16,8 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
-        source: '/admin/dashboard',
-        has: [
-          {
-            type: 'cookie',
-            key: 'admin',
-            value: 'true',
-          },
-        ],
-        destination: '/admin/user',
+        source: '/',
+        destination: '/admin/dashboard',
         permanent: true,
       },
     ]

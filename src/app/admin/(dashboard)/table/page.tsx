@@ -1,10 +1,19 @@
+'use client'
 import { TableDemo } from '@/components/table'
+
+interface ItemType {
+  name: string
+  category: string
+  price: string
+  created_at: Date
+  actions?: string
+}
 
 export default function User() {
   const fields = [
     {
       label: 'Name',
-      key: 'name',
+      key: 'name', // TypeScript will ensure this matches a key in ItemType
       width: 'lg:w-[430px] w-[80px]',
     },
     {
@@ -18,78 +27,37 @@ export default function User() {
       width: 'lg:w-[330px] w-[80px]',
     },
     {
-      label: 'Tanggal',
-      key: 'tanggal',
+      label: 'created_at',
+      key: 'created_at',
+      width: 'lg:w-[330px] w-[80px]',
+      render: (item: ItemType) => (
+        <div>at {new Date(item.created_at).toLocaleString()}</div>
+      ),
+    },
+    {
+      label: 'Actions',
+      key: 'actions',
       width: 'lg:w-[330px] w-[80px]',
     },
   ]
-  const items = [
+
+  const items: ItemType[] = [
     {
       name: 'John Doe',
       category: 'Electronics',
       price: '$99.99',
-      tanggal: '2024-04-23',
+      created_at: new Date(),
     },
-    {
-      name: 'Jane Smith',
-      category: 'Books',
-      price: '$19.99',
-      tanggal: '2024-04-22',
-    },
-    {
-      name: 'Bob Johnson',
-      category: 'Home & Garden',
-      price: '$49.99',
-      tanggal: '2024-04-21',
-    },
-    {
-      name: 'Alice Brown',
-      category: 'Electronics',
-      price: '$149.99',
-      tanggal: '2024-04-20',
-    },
-    {
-      name: 'Charlie Davis',
-      category: 'Clothing',
-      price: '$29.99',
-      tanggal: '2024-04-19',
-    },
-    {
-      name: 'Eva Wilson',
-      category: 'Books',
-      price: '$14.99',
-      tanggal: '2024-04-18',
-    },
-    {
-      name: 'Frank Miller',
-      category: 'Home & Garden',
-      price: '$79.99',
-      tanggal: '2024-04-17',
-    },
-    {
-      name: 'Grace Lee',
-      category: 'Electronics',
-      price: '$199.99',
-      tanggal: '2024-04-16',
-    },
-    {
-      name: 'Henry Clark',
-      category: 'Clothing',
-      price: '$39.99',
-      tanggal: '2024-04-15',
-    },
-    {
-      name: 'Ivy Wang',
-      category: 'Books',
-      price: '$9.99',
-      tanggal: '2024-04-14',
-    },
+    // ... rest of your items
   ]
+
   return (
     <TableDemo
       fields={fields}
       items={items}
-      footerContent={<div className="text-right font-bold">Total Rows: 2</div>}
-    ></TableDemo>
+      footerContent={
+        <div className="text-right font-bold">Total Rows: {items.length}</div>
+      }
+    />
   )
 }

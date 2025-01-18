@@ -11,7 +11,7 @@ import {
 } from '@/components/ui/table'
 import { cn } from '@/lib/utils'
 import ArrayMap from './ArrayMap'
-import { If, ConditionProvider } from './if'
+import { If, ConditionProvider, Else } from './if'
 
 interface Fields {
   key: string
@@ -19,26 +19,26 @@ interface Fields {
   width?: string
   class?: string
 }
-type ItemType = Record<
-  string,
-  string | number | React.ReactElement | null | undefined
->
 
-interface TableDemoProps {
-  fields: Fields[]
-  items: ItemType[]
+interface FieldsWithRender<T> extends Fields {
+  render?: (item: T, index: number) => React.ReactElement
+}
+
+interface TableDemoProps<T> {
+  fields: FieldsWithRender<T>[]
+  items: T[]
   classRow?: string
   classCol?: string
   footerContent?: React.ReactElement
 }
 
-export function TableDemo({
+export function TableDemo<T extends Record<string, any>>({
   fields,
   items,
   classRow,
   classCol,
   footerContent,
-}: Readonly<TableDemoProps>) {
+}: Readonly<TableDemoProps<T>>) {
   return (
     <Table>
       <TableHeader>
@@ -65,12 +65,24 @@ export function TableDemo({
               <ArrayMap
                 of={fields}
                 render={(field, colIndex) => (
-                  <TableCell
-                    key={'cel' + colIndex}
-                    className={cn(classCol, field.class)}
-                  >
-                    {item[field.key] ?? '-'}
-                  </TableCell>
+                  <ConditionProvider initialCondition={!!field.render}>
+                    <If condition={!!field.render}>
+                      <TableCell
+                        key={'cel' + colIndex}
+                        className={cn(classCol, field.class)}
+                      >
+                        {field.render?.(item, rowIndex)}
+                      </TableCell>
+                    </If>
+                    <Else>
+                      <TableCell
+                        key={'cel' + colIndex}
+                        className={cn(classCol, field.class)}
+                      >
+                        {(item[field.key] as string) ?? '-'}
+                      </TableCell>
+                    </Else>
+                  </ConditionProvider>
                 )}
               />
             </TableRow>
