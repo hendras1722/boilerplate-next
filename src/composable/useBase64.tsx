@@ -113,7 +113,7 @@ function useBase64<T>(
         const objectOptions = options as UseBase64ObjectOptions<T>
         const serializer =
           objectOptions?.serializer || getDefaultSerialization(target)
-        const serialized = serializer(target)
+        const serialized = serializer(target as T)
         result = await blobToBase64(
           new Blob([serialized], { type: 'application/json' })
         )

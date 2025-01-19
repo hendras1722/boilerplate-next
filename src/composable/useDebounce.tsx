@@ -21,8 +21,8 @@ export function useDebounce<T>(
   const [value, setValue] = useState<T>(initialValue)
   const [debouncedValue, setDebouncedValue] = useState<T>(initialValue)
 
-  const timeoutRef = useRef<NodeJS.Timeout>()
-  const maxWaitRef = useRef<NodeJS.Timeout>()
+  const timeoutRef = useRef<NodeJS.Timeout>(null)
+  const maxWaitRef = useRef<NodeJS.Timeout>(null)
   const lastCallTimeRef = useRef<number>(Date.now())
 
   useEffect(() => {
