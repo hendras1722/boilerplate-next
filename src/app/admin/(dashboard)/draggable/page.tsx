@@ -1,10 +1,16 @@
 'use client'
 
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useDraggable } from '@/composable/useDraggable'
+import { useElementBounding } from '@/composable/useElementBounding'
 
 export default function MyDraggableComponent() {
   const elementRef = useRef<HTMLDivElement | null>(null)
+  const containerRef = useRef<HTMLDivElement | null>(null)
+  const { width, height } = useElementBounding(
+    containerRef as React.RefObject<HTMLElement>
+  )
+
   const {
     x = 10,
     y = 10,
@@ -12,9 +18,9 @@ export default function MyDraggableComponent() {
   } = useDraggable(elementRef as React.RefObject<HTMLElement>, {
     boundaries: {
       minX: 10,
-      maxX: 930,
+      maxX: width - 117,
       minY: 10,
-      maxY: 270,
+      maxY: height - 54,
     },
     onStart: (pos) => console.log('Drag started at:', pos),
     onMove: (pos) => console.log('Dragging to:', pos),
@@ -23,7 +29,10 @@ export default function MyDraggableComponent() {
 
   return (
     <div>
-      <div className="relative h-80 flex justify-center items-center bg-gray-200 rounded-lg">
+      <div
+        ref={containerRef}
+        className="relative h-80 flex justify-center items-center bg-gray-200 rounded-lg"
+      >
         <div
           ref={elementRef}
           className="bg-red-300 text-white font-bold py-2 px-4 rounded text-nowrap"

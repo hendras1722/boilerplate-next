@@ -18,7 +18,7 @@ export default function MyDropZone() {
   function renderFile() {
     if (!files) {
       return (
-        <div>
+        <div className="dark:text-black">
           <ConditionProvider initialCondition={!isOverDropZone}>
             <If condition={!isOverDropZone}>
               <p>Drop files here</p>

@@ -1,6 +1,8 @@
 'use client'
 
+import { Button } from '@/components/ui/button'
 import { useFetch } from '@/composable/useFetch'
+import { FaSpinner } from 'react-icons/fa6'
 
 export interface Jsonplaceholder {
   userId: number
@@ -15,7 +17,7 @@ export default function FetchData() {
     '/js-holder/todos/1',
     {},
     {
-      immediate: false, // Fetch langsung dijalankan
+      immediate: false, // for mounted when immediete true
     }
   )
 
@@ -60,10 +62,13 @@ export default function FetchData() {
   // )
   return (
     <div>
-      <div>
-        <button onClick={refetch}>Fetch</button>
+      <div className="mb-5 flex gap-3 items-center">
+        <Button variant={'destructive'} onClick={refetch}>
+          Fetch
+        </Button>
+        <div>{isFetching && <FaSpinner className="animate-spin" />}</div>
       </div>
-      <div>{isFetching && 'loading'}</div>
+
       <div>{error && 'Error Fetching'}</div>
       <div>{data && JSON.stringify(data, null, 2)}</div>
     </div>
