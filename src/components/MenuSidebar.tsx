@@ -2,7 +2,7 @@
 
 import { cn } from '@/utils/lib'
 import ArrayMap from './ArrayMap'
-import RouteLink from '@/composable/route'
+import RouteLink from '@/components/route'
 import { useRoute } from '@/composable/useRoute'
 
 interface MenuItem {
