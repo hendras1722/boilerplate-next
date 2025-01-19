@@ -5,37 +5,37 @@ import { SecurityConfig } from '@/type/config_security'
 function setSecurityHeaders(response: NextResponse, config: SecurityConfig) {
   const { headers } = response
 
-  if (config.hideHeaderPoweredBy) {
-    headers.delete('x-powered-by')
-  }
+  // if (config.hideHeaderPoweredBy) {
+  //   headers.delete('x-powered-by')
+  // }
 
-  if (config.xssProtection) {
-    headers.set('X-XSS-Protection', '1; mode=block')
-  }
+  // if (config.xssProtection) {
+  //   headers.set('X-XSS-Protection', '1; mode=block')
+  // }
 
-  if (config.contentTypeOptions) {
-    headers.set('X-Content-Type-Options', 'nosniff')
-  }
+  // if (config.contentTypeOptions) {
+  //   headers.set('X-Content-Type-Options', 'nosniff')
+  // }
 
-  if (config.frameguard) {
-    const { action, domain } = config.frameguard
-    let value = action as string
-    if (action === 'ALLOW-FROM' && domain) {
-      value = `ALLOW-FROM ${domain}`
-    }
-    headers.set('X-Frame-Options', value)
-  }
+  // if (config.frameguard) {
+  //   const { action, domain } = config.frameguard
+  //   let value = action as string
+  //   if (action === 'ALLOW-FROM' && domain) {
+  //     value = `ALLOW-FROM ${domain}`
+  //   }
+  //   headers.set('X-Frame-Options', value)
+  // }
 
-  if (config.contentSecurityPolicy) {
-    headers.set(
-      'Content-Security-Policy',
-      "default-src 'self'; " +
-        "script-src 'self' 'unsafe-inline' 'unsafe-eval'; " +
-        "style-src 'self' 'unsafe-inline'; " +
-        "img-src 'self' data: https:; " +
-        "font-src 'self';"
-    )
-  }
+  // if (config.contentSecurityPolicy) {
+  //   headers.set(
+  //     'Content-Security-Policy',
+  //     "default-src 'self'; " +
+  //       "script-src 'self' 'unsafe-inline' 'unsafe-eval'; " +
+  //       "style-src 'self' 'unsafe-inline'; " +
+  //       "img-src 'self' data: https:; " +
+  //       "font-src 'self';"
+  //   )
+  // }
 
   return response
 }

@@ -3,12 +3,32 @@ import type { NextConfig } from 'next'
 const nextConfig: NextConfig = {
   /* config options here */
   async rewrites() {
-    return [
-      {
-        source: '/js-holder/:path*',
-        destination: 'https://jsonplaceholder.typicode.com/:path*',
-      },
-    ]
+    return {
+      afterFiles: [
+        {
+          source: '/js-holder/:path*',
+          destination: 'https://jsonplaceholder.typicode.com/:path*',
+        },
+      ],
+      beforeFiles: [
+        {
+          source: '/js-holder/:path*',
+          destination: 'https://jsonplaceholder.typicode.com/:path*',
+        },
+      ],
+      fallback: [
+        {
+          source: '/js-holder/:path*',
+          destination: 'https://jsonplaceholder.typicode.com/:path*',
+        },
+      ],
+    }
+    // return [
+    //   {
+
+    //     basePath: false,
+    //   },
+    // ]
   },
   images: {
     domains: ['lh3.googleusercontent.com'],
