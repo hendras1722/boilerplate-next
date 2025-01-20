@@ -1,7 +1,7 @@
 'use client'
 
 import { Input } from '@/components/ui/input'
-import { useDebounce } from '@/composable/useDebounce'
+import { useDebounce } from '@msa_cli/react-composable'
 
 export default function Debounce() {
   const [value, debouncedValue, setValue] = useDebounce('', 1000)

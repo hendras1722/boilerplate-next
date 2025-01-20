@@ -1,6 +1,6 @@
 'use client'
 
-import { useNetwork } from '@/composable/useNetwork'
+import { useNetwork } from '@msa_cli/react-composable'
 
 export default function NetworkStatus() {
   const network = useNetwork()

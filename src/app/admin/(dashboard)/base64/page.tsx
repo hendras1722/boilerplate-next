@@ -2,7 +2,7 @@
 
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
-import useBase64 from '@/composable/useBase64'
+import { useBase64 } from '@msa_cli/react-composable'
 import { useState } from 'react'
 
 export default function Base64() {

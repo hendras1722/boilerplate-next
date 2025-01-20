@@ -2,7 +2,7 @@
 
 import ArrayMap from '@/components/ArrayMap'
 import { ConditionProvider, Else, If } from '@/components/if'
-import { useDropZone } from '@/composable/useDropzone'
+import { useDropZone } from '@msa_cli/react-composable'
 import { useRef } from 'react'
 
 export default function MyDropZone() {

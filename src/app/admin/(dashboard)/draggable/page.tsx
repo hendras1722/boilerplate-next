@@ -1,8 +1,11 @@
 'use client'
 
 import React, { useEffect, useRef } from 'react'
-import { useDraggable } from '@/composable/useDraggable'
-import { useElementBounding } from '@/composable/useElementBounding'
+import {
+  useDraggable,
+  useElementBounding,
+  useScreenlock,
+} from '@msa_cli/react-composable'
 
 export default function MyDraggableComponent() {
   const elementRef = useRef<HTMLDivElement | null>(null)
@@ -10,6 +13,15 @@ export default function MyDraggableComponent() {
   const { width, height } = useElementBounding(
     containerRef as React.RefObject<HTMLElement>
   )
+  const body = document.getElementsByTagName('body')[0]
+  const [isScreenLocked, setScreenLocked] = useScreenlock(body)
+
+  useEffect(() => {
+    setScreenLocked(true)
+    return () => {
+      setScreenLocked(false)
+    }
+  }, [isScreenLocked])
 
   const {
     x = 10,

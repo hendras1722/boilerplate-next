@@ -1,4 +1,4 @@
-import { useDateFormat, useRelativeDate } from '@/composable/useDateformat'
+import { useDateFormat, useRelativeDate } from '@msa_cli/react-composable'
 import { id } from 'date-fns/locale'
 
 export default function FormatDate() {
