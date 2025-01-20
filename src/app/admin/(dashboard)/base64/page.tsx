@@ -1,6 +1,7 @@
 'use client'
 
 import { Input } from '@/components/ui/input'
+import { Textarea } from '@/components/ui/textarea'
 import useBase64 from '@/composable/useBase64'
 import { useState } from 'react'
 
@@ -24,25 +25,31 @@ export default function Base64() {
         text:{' '}
         <Input
           placeholder="input"
-          className="ml-5"
           onChange={(e) => setStateName(e.target.value)}
           value={stateName}
         />
-        {base64}
+        <Textarea
+          placeholder="Value bas64"
+          onChange={() => {}}
+          name=""
+          id=""
+          disabled={true}
+          value={base64}
+          rows={10}
+        />
       </div>
       <div className="mt-5">
         File: <Input placeholder="File" type="file" onChange={handleChange} />
-        {!loading && (
-          <Input
-            placeholder="Value bas64"
-            type="text"
-            onChange={() => {}}
-            name=""
-            id=""
-            disabled={true}
-            value={base64File}
-          />
-        )}
+        {loading && <div className="my-5">Please Wait ...</div>}
+        <Textarea
+          placeholder="Value bas64"
+          onChange={() => {}}
+          name=""
+          id=""
+          disabled={true}
+          value={base64File}
+          rows={10}
+        />
       </div>
     </div>
   )
