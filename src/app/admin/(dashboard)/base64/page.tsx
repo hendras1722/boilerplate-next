@@ -40,7 +40,7 @@ export default function Base64() {
       </div>
       <div className="mt-5">
         File: <Input placeholder="File" type="file" onChange={handleChange} />
-        {!loading && <div className="my-5">Please Wait ...</div>}
+        {loading && <div className="my-5">Please Wait ...</div>}
         <Textarea
           placeholder="Value bas64"
           onChange={() => {}}
