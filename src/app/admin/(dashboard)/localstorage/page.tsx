@@ -1,5 +1,5 @@
 'use client'
-import { useStorage } from '@/composable/useLocalStorage'
+import { useStorage } from '@msa_cli/react-composable'
 import { useTheme } from 'next-themes'
 import { useEffect } from 'react'
 

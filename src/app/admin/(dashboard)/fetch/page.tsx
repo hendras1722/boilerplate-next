@@ -1,7 +1,7 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
-import { useFetch } from '@/composable/useFetch'
+import { useFetch } from '@msa_cli/react-composable'
 import { FaSpinner } from 'react-icons/fa6'
 
 export interface Jsonplaceholder {

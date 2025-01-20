@@ -1,8 +1,7 @@
 'use client'
 
-import React, { useEffect, useRef } from 'react'
-import { useDraggable } from '@/composable/useDraggable'
-import { useElementBounding } from '@/composable/useElementBounding'
+import React, { useRef } from 'react'
+import { useDraggable, useElementBounding } from '@msa_cli/react-composable'
 
 export default function MyDraggableComponent() {
   const elementRef = useRef<HTMLDivElement | null>(null)
