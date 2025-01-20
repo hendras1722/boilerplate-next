@@ -1,27 +1,7 @@
 import { useState, useEffect, useCallback } from 'react'
 
 interface UseBase64Options {
-  /**
-   * Output as Data URL format
-   *
-   * @default true
-   */
   dataUrl?: boolean
-}
-
-interface ToDataURLOptions extends UseBase64Options {
-  /**
-   * MIME type
-   */
-  type?: string
-  /**
-   * Image quality of jpeg or webp
-   */
-  quality?: number
-}
-
-interface UseBase64ObjectOptions<T> extends UseBase64Options {
-  serializer?: (v: T) => string
 }
 
 interface UseBase64Return {
@@ -31,92 +11,86 @@ interface UseBase64Return {
   execute: () => Promise<string>
 }
 
-// Helper functions
-const imgLoaded = (img: HTMLImageElement): Promise<void> => {
+// Helper to process in chunks
+const processInChunks = async (
+  blob: Blob,
+  chunkSize: number = 1024 * 1024
+): Promise<string> => {
   return new Promise((resolve, reject) => {
-    if (!img.complete) {
-      img.onload = () => resolve()
-      img.onerror = reject
-    } else {
-      resolve()
-    }
-  })
-}
+    const chunks: string[] = []
+    let offset = 0
 
-const blobToBase64 = (blob: Blob): Promise<string> => {
-  return new Promise((resolve, reject) => {
-    const fr = new FileReader()
-    fr.onload = (e) => {
-      resolve(e.target?.result as string)
-    }
-    fr.onerror = reject
-    fr.readAsDataURL(blob)
-  })
-}
+    const reader = new FileReader()
 
-const getDefaultSerialization = (target: any): ((v: any) => string) => {
-  return (v: any) => JSON.stringify(v)
+    reader.onload = (e) => {
+      chunks.push((e.target?.result as string).split(',')[1] || '')
+      offset += chunkSize
+
+      if (offset >= blob.size) {
+        // All chunks are processed
+        resolve(`data:${blob.type};base64,${chunks.join('')}`)
+      } else {
+        // Process next chunk
+        readNextChunk()
+      }
+    }
+
+    reader.onerror = (e) => reject(e)
+
+    const readNextChunk = () => {
+      const chunk = blob.slice(offset, offset + chunkSize)
+      reader.readAsDataURL(chunk)
+    }
+
+    readNextChunk()
+  })
 }
 
 // Main hook
-function useBase64<T>(
-  target:
-    | string
-    | Blob
-    | ArrayBuffer
-    | HTMLCanvasElement
-    | HTMLImageElement
-    | T[]
-    | Record<string, unknown>
-    | Map<string, unknown>
-    | Set<unknown>,
-  options?: UseBase64Options | ToDataURLOptions | UseBase64ObjectOptions<T>
+function useBase64(
+  target: string | Blob | ArrayBuffer | HTMLCanvasElement | HTMLImageElement,
+  options?: UseBase64Options
 ): UseBase64Return {
   const [base64, setBase64] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<Error | null>(null)
 
   const execute = useCallback(async (): Promise<string> => {
+    if (!target) {
+      setBase64('')
+      return ''
+    }
+
     setLoading(true)
     setError(null)
 
     try {
       let result: string
 
-      if (target == null) {
-        result = ''
+      if (target instanceof Blob) {
+        result = await processInChunks(target)
       } else if (typeof target === 'string') {
-        result = await blobToBase64(new Blob([target], { type: 'text/plain' }))
-      } else if (target instanceof Blob) {
-        result = await blobToBase64(target)
+        result = await processInChunks(new Blob([target]))
       } else if (target instanceof ArrayBuffer) {
-        result = window.btoa(String.fromCharCode(...new Uint8Array(target)))
+        result = await processInChunks(new Blob([target]))
       } else if (target instanceof HTMLCanvasElement) {
-        const dataUrlOptions = options as ToDataURLOptions
-        result = target.toDataURL(dataUrlOptions?.type, dataUrlOptions?.quality)
+        const blob = await new Promise<Blob>((resolve) => {
+          target.toBlob((b) => resolve(b!))
+        })
+        result = await processInChunks(blob)
       } else if (target instanceof HTMLImageElement) {
-        const img = target.cloneNode(false) as HTMLImageElement
-        img.crossOrigin = 'Anonymous'
-        await imgLoaded(img)
-
         const canvas = document.createElement('canvas')
         const ctx = canvas.getContext('2d')
         if (!ctx) throw new Error('Failed to get canvas context')
 
-        canvas.width = img.width
-        canvas.height = img.height
-        ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
+        canvas.width = target.width
+        canvas.height = target.height
+        ctx.drawImage(target, 0, 0)
 
-        const dataUrlOptions = options as ToDataURLOptions
-        result = canvas.toDataURL(dataUrlOptions?.type, dataUrlOptions?.quality)
-      } else if (typeof target === 'object') {
-        const objectOptions = options as UseBase64ObjectOptions<T>
-        const serializer =
-          objectOptions?.serializer || getDefaultSerialization(target)
-        const serialized = serializer(target as T)
-        result = await blobToBase64(
-          new Blob([serialized], { type: 'application/json' })
-        )
+        const blob = await new Promise<Blob>((resolve) => {
+          canvas.toBlob((b) => resolve(b!))
+        })
+        result = await processInChunks(blob)
       } else {
         throw new Error('Target is of unsupported type')
       }
@@ -139,7 +113,7 @@ function useBase64<T>(
   }, [target, options])
 
   useEffect(() => {
-    execute().catch(() => {}) // Execute on mount and when dependencies change
+    execute().catch(() => {})
   }, [execute])
 
   return {
