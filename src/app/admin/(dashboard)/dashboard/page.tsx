@@ -13,13 +13,122 @@ export default function Dashboard() {
       </h1>
       <Divider></Divider>
       <div className="mt-5">
-        <h4 className="mb-5 font-semibold">Feature:</h4>
+        <div className="bg-red-100 border-2 border-red-300 p-3 rounded-lg text-red-500 font-bold">
+          Note: for installing package or build project, add command: -f or
+          --force (because of error by react-day-picker, but if you no need
+          calendar pls delete component calendar in src/components/ui/calendar
+          and delete or uninstall package react-day-picker in package.json)
+        </div>
+        <h4 className="my-5 font-semibold">Feature:</h4>
         <div>
           <details
             name="accordion"
             id="boating"
             open
             className="border border-black p-3"
+          >
+            <summary className="font-bold">Version 1.0.2 </summary>
+            <p className="mt-3 text-sm font-normal">
+              <ul className="list-disc ml-5">
+                <li>update package @msa_cli/react_composable v1.0.5</li>
+                <li>add composable onBeforeLeave</li>
+                <li>
+                  delete composable useLocalStorage move to package
+                  <a
+                    href="https://www.npmjs.com/package/@msa_cli/react-composable"
+                    className="ml-2 text-blue-700"
+                  >
+                    @msa_cli/react-composable
+                  </a>
+                </li>
+                <li>
+                  delete composable useDebounce move to package
+                  <a
+                    href="https://www.npmjs.com/package/@msa_cli/react-composable"
+                    className="ml-2 text-blue-700"
+                  >
+                    @msa_cli/react-composable
+                  </a>
+                </li>
+                <li>
+                  delete composable useBreakpoints move to package
+                  <a
+                    href="https://www.npmjs.com/package/@msa_cli/react-composable"
+                    className="ml-2 text-blue-700"
+                  >
+                    @msa_cli/react-composable
+                  </a>
+                </li>
+                <li>
+                  delete composable useDraggable move to package
+                  <a
+                    href="https://www.npmjs.com/package/@msa_cli/react-composable"
+                    className="ml-2 text-blue-700"
+                  >
+                    @msa_cli/react-composable
+                  </a>
+                </li>
+                <li>
+                  delete composable useFetch move to package
+                  <a
+                    href="https://www.npmjs.com/package/@msa_cli/react-composable"
+                    className="ml-2 text-blue-700"
+                  >
+                    @msa_cli/react-composable
+                  </a>
+                </li>
+                <li>
+                  delete composable useBase64 move to package
+                  <a
+                    href="https://www.npmjs.com/package/@msa_cli/react-composable"
+                    className="ml-2 text-blue-700"
+                  >
+                    @msa_cli/react-composable
+                  </a>
+                </li>
+                <li>
+                  delete composable useDateFormat move to package
+                  <a
+                    href="https://www.npmjs.com/package/@msa_cli/react-composable"
+                    className="ml-2 text-blue-700"
+                  >
+                    @msa_cli/react-composable
+                  </a>
+                </li>
+                <li>
+                  delete composable useDebounce move to package
+                  <a
+                    href="https://www.npmjs.com/package/@msa_cli/react-composable"
+                    className="ml-2 text-blue-700"
+                  >
+                    @msa_cli/react-composable
+                  </a>
+                </li>
+                <li>
+                  delete composable useElementBounding move to package
+                  <a
+                    href="https://www.npmjs.com/package/@msa_cli/react-composable"
+                    className="ml-2 text-blue-700"
+                  >
+                    @msa_cli/react-composable
+                  </a>
+                </li>
+                <li>
+                  delete composable useNetwork move to package
+                  <a
+                    href="https://www.npmjs.com/package/@msa_cli/react-composable"
+                    className="ml-2 text-blue-700"
+                  >
+                    @msa_cli/react-composable
+                  </a>
+                </li>
+              </ul>
+            </p>
+          </details>
+          <details
+            name="accordion"
+            id="boating"
+            className="border border-black p-3 mt-3"
           >
             <summary className="font-bold">Version 1.0.1 </summary>
             <p className="mt-3 text-sm font-normal">
