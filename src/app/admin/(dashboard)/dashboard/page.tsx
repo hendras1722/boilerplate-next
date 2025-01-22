@@ -13,12 +13,6 @@ export default function Dashboard() {
       </h1>
       <Divider></Divider>
       <div className="mt-5">
-        <div className="bg-red-100 border-2 border-red-300 p-3 rounded-lg text-red-500 font-bold">
-          Note: for installing package or build project, add command: -f or
-          --force (because of error by react-day-picker, but if you no need
-          calendar pls delete component calendar in src/components/ui/calendar
-          and delete or uninstall package react-day-picker in package.json)
-        </div>
         <h4 className="my-5 font-semibold">Feature:</h4>
         <div>
           <details
