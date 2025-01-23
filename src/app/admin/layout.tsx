@@ -1,16 +1,6 @@
 import type { Metadata } from 'next'
-import { Poppins } from 'next/font/google'
-import MenuSidebar from '@/components/MenuSidebar'
 import Navbar from '@/components/layouts/Navbar'
-import { FaHouse, FaTable } from 'react-icons/fa6'
-import { useRoute } from '@/composable/useRoute'
 import ListMenu from '@/components/layouts/Menu'
-
-const poppins = Poppins({
-  variable: '--font-poppins',
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-})
 
 export const metadata: Metadata = {
   title: 'Dashboard',
@@ -24,16 +14,16 @@ export default function RootLayoutAdmin({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${poppins.variable} antialiased`}>
+      <body>
         <Navbar />
         <div
           id="sidebar_menu"
-          className="grid grid-cols-[255px_1fr] h-[calc(100vh-56px)] duration-300 ease-in-out"
+          className="grid grid-cols-[250px_1fr] h-[calc(100vh-65px)] duration-300 ease-in-out"
         >
-          <div className="w-full">
+          <div className="w-full overflow-y-auto overflow-x-hidden">
             <ListMenu />
           </div>
-          <div className="h-full w-full bg-white border-l-2 border-gray-200 relative z-10 p-5 overflow-auto dark:bg-black dark:shadow-white dark:shadow-lg dark:border-white">
+          <div className="h-full w-full bg-white border-l-2 border-gray-200 relative z-10 p-5 overflow-y-auto dark:bg-black dark:shadow-white dark:shadow-lg dark:border-white">
             <div className="shadow-md p-5 rounded-lg">{children}</div>
           </div>
         </div>

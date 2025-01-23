@@ -65,12 +65,12 @@ export function TableDemo<T extends Record<string, any>>({
               <ArrayMap
                 of={fields}
                 render={(field, colIndex) => (
-                  <ConditionProvider initialCondition={!!field.render}>
+                  <ConditionProvider
+                    key={'cel' + colIndex}
+                    initialCondition={!!field.render}
+                  >
                     <If condition={!!field.render}>
-                      <TableCell
-                        key={'cel' + colIndex}
-                        className={cn(classCol, field.class)}
-                      >
+                      <TableCell className={cn(classCol, field.class)}>
                         {field.render?.(item, rowIndex)}
                       </TableCell>
                     </If>

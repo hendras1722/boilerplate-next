@@ -1,3 +1,4 @@
+import Body from '@/components/layouts/Body'
 import type { Metadata } from 'next'
 import { Poppins } from 'next/font/google'
 
@@ -19,7 +20,7 @@ export default function RootLayoutAdmin({
 }>) {
   return (
     <html lang="en">
-      <body className={`${poppins.variable} antialiased`}>{children}</body>
+      <Body>{children}</Body>
     </html>
   )
 }
