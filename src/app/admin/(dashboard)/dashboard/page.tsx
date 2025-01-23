@@ -1,5 +1,3 @@
-'use client'
-
 import Divider from '@/components/divider'
 import Version from '@/components/Version'
 

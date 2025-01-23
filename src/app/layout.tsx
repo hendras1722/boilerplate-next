@@ -1,7 +1,13 @@
 import type { Metadata } from 'next'
 import './globals.css'
 // import Body from '@/components/layouts/Body'
-import { ThemeProvider } from '@/components/theme-provider'
+import { Poppins } from 'next/font/google'
+
+const poppins = Poppins({
+  variable: '--font-poppins',
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+})
 
 export const metadata: Metadata = {
   title: 'Dashboard',
@@ -14,17 +20,8 @@ export default function RootLayoutAdmin({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          {children}
-        </ThemeProvider>
-      </body>
+    <html lang="en">
+      <body className={`${poppins.variable} antialiased`}>{children}</body>
     </html>
   )
 }

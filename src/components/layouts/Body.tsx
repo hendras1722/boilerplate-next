@@ -1,21 +1,16 @@
-'use client'
-
-import { cn } from '@/utils/lib'
-import { Poppins } from 'next/font/google'
-
-const poppins = Poppins({
-  variable: '--font-poppins',
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-})
+import { ThemeProvider } from '@/components/theme-provider'
 
 export default function Body({
   children,
-  className,
-}: Readonly<{ children: React.ReactNode; className?: string }>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
-    <body className={cn(`${poppins.variable} antialiased`, className)}>
+    <ThemeProvider
+      attribute="class"
+      defaultTheme="system"
+      enableSystem
+      disableTransitionOnChange
+    >
       {children}
-    </body>
+    </ThemeProvider>
   )
 }
