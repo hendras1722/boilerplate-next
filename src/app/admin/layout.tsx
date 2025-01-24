@@ -14,8 +14,6 @@ export default function RootLayoutAdmin({
   children: React.ReactNode
 }>) {
   return (
-    // <html lang="en" suppressHydrationWarning>
-    //   <body className={`${poppins.variable} antialiased`}>
     <Body>
       <Navbar />
       <div
@@ -30,7 +28,5 @@ export default function RootLayoutAdmin({
         </div>
       </div>
     </Body>
-    //   </body>
-    // </html>
   )
 }
