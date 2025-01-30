@@ -14,6 +14,28 @@ export default function Version() {
         open
         className="border border-black p-3 mb-3"
       >
+        <summary className="font-bold">Version 1.0.4 </summary>
+        <div className="mt-3 text-sm font-normal">
+          <ul className="list-disc ml-5">
+            <li>Update next v15.1.6</li>
+            <li>
+              chore: update version @msa_cli/react_composable v1.0.15 check
+              documentation:{' '}
+              <Link
+                className="text-blue-400"
+                href={'https://react-composable.vercel.app/'}
+              >
+                https://react-composable.vercel.app/
+              </Link>
+            </li>
+          </ul>
+        </div>
+      </details>
+      <details
+        name="accordion"
+        id="boating"
+        className="border border-black p-3 mb-3"
+      >
         <summary className="font-bold">Version 1.0.3 </summary>
         <div className="mt-3 text-sm font-normal">
           <ul className="list-disc ml-5">
