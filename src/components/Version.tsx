@@ -3,9 +3,27 @@
 import DarkMode from '@/components/DarkMode'
 import { useStore } from '@/store/todo_list'
 import Link from 'next/link'
+import { group } from 'radash'
 
 export default function Version() {
   const { count, inc } = useStore()
+
+  const fish = [
+    {
+      name: 'Marlin',
+      source: 'ocean',
+    },
+    {
+      name: 'Bass',
+      source: 'lake',
+    },
+    {
+      name: 'Trout',
+      source: 'lake',
+    },
+  ]
+
+  const fishBySource = group(fish, (f) => f.source)
   return (
     <div>
       <details
@@ -14,12 +32,23 @@ export default function Version() {
         open
         className="border border-black p-3 mb-3"
       >
-        <summary className="font-bold">Version 1.0.4 </summary>
+        <summary className="font-bold">Version 1.0.4</summary>
         <div className="mt-3 text-sm font-normal">
           <ul className="list-disc ml-5">
-            <li>Update next v15.1.6</li>
             <li>
-              chore: update version @msa_cli/react_composable v1.0.15 check
+              Add package radash
+              <div>{JSON.stringify(fish)}</div>
+              <div>result using radash: {JSON.stringify(fishBySource)}</div>
+              chore: add package radash check documentation:{' '}
+              <Link
+                className="text-blue-400"
+                href={'https://radash-docs.vercel.app/'}
+              >
+                https://radash-docs.vercel.app/
+              </Link>
+            </li>
+            <li>
+              chore: update version @msa_cli/react_composable v1.0.20 check
               documentation:{' '}
               <Link
                 className="text-blue-400"
