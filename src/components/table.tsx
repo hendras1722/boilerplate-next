@@ -11,7 +11,7 @@ import {
 } from '@/components/ui/table'
 import { cn } from '@/utils/lib'
 import ArrayMap from './ArrayMap'
-import { If, ConditionProvider, Else } from './if'
+import { If, Else } from './if'
 
 interface Fields {
   key: string
@@ -65,39 +65,29 @@ export function TableDemo<T extends Record<string, any>>({
               <ArrayMap
                 of={fields}
                 render={(field, colIndex) => (
-                  <ConditionProvider
-                    key={'cel' + colIndex}
-                    initialCondition={!!field.render}
-                  >
-                    <If condition={!!field.render}>
+                  <If key={'cel' + colIndex} condition={!!field.render}>
+                    <TableCell className={cn(classCol, field.class)}>
+                      {field.render?.(item, rowIndex)}
+                    </TableCell>
+                    <Else key={'cel' + colIndex}>
                       <TableCell className={cn(classCol, field.class)}>
-                        {field.render?.(item, rowIndex)}
-                      </TableCell>
-                    </If>
-                    <Else>
-                      <TableCell
-                        key={'cel' + colIndex}
-                        className={cn(classCol, field.class)}
-                      >
                         {(item[field.key] as string) ?? '-'}
                       </TableCell>
                     </Else>
-                  </ConditionProvider>
+                  </If>
                 )}
               />
             </TableRow>
           )}
         />
       </TableBody>
-      <ConditionProvider initialCondition={!!footerContent}>
-        <If condition={!!footerContent}>
-          <TableFooter>
-            <TableRow>
-              <TableCell colSpan={fields.length}>{footerContent}</TableCell>
-            </TableRow>
-          </TableFooter>
-        </If>
-      </ConditionProvider>
+      <If condition={!!footerContent}>
+        <TableFooter>
+          <TableRow>
+            <TableCell colSpan={fields.length}>{footerContent}</TableCell>
+          </TableRow>
+        </TableFooter>
+      </If>
     </Table>
   )
 }

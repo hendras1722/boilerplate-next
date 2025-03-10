@@ -4,14 +4,15 @@
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
 import { FaMoon, FaSun } from 'react-icons/fa6'
-import { ConditionProvider, Else, If } from './if'
+import { Else, If } from './if'
+import { useToggle } from '@msa_cli/react-composable'
 
 export default function DarkMode() {
-  const [mounted, setMounted] = useState(false)
   const { theme, setTheme } = useTheme()
+  const [mounted, setMounted] = useToggle(false)
 
   useEffect(() => {
-    setMounted(true)
+    setMounted()
   }, [])
 
   function handleMode() {
@@ -26,18 +27,16 @@ export default function DarkMode() {
 
   return (
     <span>
-      <ConditionProvider initialCondition={theme === 'light'}>
-        <If condition={theme === 'light'}>
-          <button onClick={() => handleMode()}>
-            <FaSun />
-          </button>
-        </If>
+      <If condition={theme === 'light'}>
+        <button onClick={() => handleMode()}>
+          <FaSun />
+        </button>
         <Else>
           <button onClick={() => handleMode()}>
             <FaMoon />
           </button>
         </Else>
-      </ConditionProvider>
+      </If>
     </span>
   )
 }

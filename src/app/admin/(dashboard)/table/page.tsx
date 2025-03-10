@@ -31,7 +31,7 @@ export default function User() {
       key: 'created_at',
       width: 'lg:w-[330px] w-[80px]',
       render: (item: ItemType) => (
-        <div>at {new Date(item.created_at).toLocaleString()}</div>
+        <div>Pukul at {new Date(item.created_at).toLocaleString()}</div>
       ),
     },
     {
