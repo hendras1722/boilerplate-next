@@ -2,7 +2,7 @@
 
 import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
-import { SquaresExclude, LogOut, User } from 'lucide-react'
+import { SquaresExclude, LogOut } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 import { Else, If } from '../atoms/if'
 

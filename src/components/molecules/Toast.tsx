@@ -27,7 +27,7 @@ export default function Toast({
           severity: 'error',
         })
       }, 3000)
-  }, [toast.open])
+  }, [setToast, toast.open])
   return (
     <div
       className={

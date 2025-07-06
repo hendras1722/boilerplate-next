@@ -65,9 +65,10 @@ const AdminLayout = ({ children }: { readonly children: React.ReactNode }) => {
     }
   }, [])
 
+  const meCookie = Cookies.get('me')
   const getMe = useMemo(() => {
-    return JSON.parse(Cookies.get('me') ?? '{}')
-  }, [Cookies.get('me')])
+    return JSON.parse(meCookie ?? '{}')
+  }, [meCookie])
 
   // Cleanup effect for resize events
   useEffect(() => {
