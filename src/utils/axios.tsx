@@ -26,7 +26,7 @@ api.interceptors.response.use(
 
       try {
         const res = await api.post<BaseResponse<LoginResult>>(
-          '/v1/api/auth/refresh-token'
+          '/v1/auth/refresh-token'
         )
         const newAccessToken = res.data.result.token.accessToken
         // setAccessToken(newAccessToken)

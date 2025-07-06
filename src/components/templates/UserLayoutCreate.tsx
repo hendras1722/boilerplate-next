@@ -119,7 +119,7 @@ export default function LayoutCreateUser() {
   const onSubmit = (data: UsersSchema) => {
     const formData = new FormData()
 
-    for (let item of Object.keys(data)) {
+    for (const item of Object.keys(data)) {
       if (item === 'image') {
         const file = data.image?.[0]
         if (file) {

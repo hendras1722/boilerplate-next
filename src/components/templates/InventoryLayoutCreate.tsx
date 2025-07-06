@@ -133,7 +133,7 @@ export default function LayoutCreateInventory() {
   const onSubmit = (data: InventorySchema) => {
     const formData = new FormData()
 
-    for (let item of Object.keys(data)) {
+    for (const item of Object.keys(data)) {
       if (item === 'image') {
         const file = data.image?.[0]
         if (file) {
@@ -152,7 +152,6 @@ export default function LayoutCreateInventory() {
       <Toast toast={showToast} setToast={setShowToast} />
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
         <h1>Create Inventory</h1>
-
         <Box mb={2} mt={2}>
           <div
             className="h-[130px] w-[130px] mb-2 bg-gray-100 flex items-center justify-center border border-dashed border-gray-300 rounded cursor-pointer"

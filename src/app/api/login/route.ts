@@ -25,6 +25,7 @@ export async function POST(request: NextRequest) {
   const response = NextResponse.json(data)
 
   response.cookies.set('token', data.result.token.accessToken, {
+    httpOnly: true,
     secure: true,
     path: '/',
     sameSite: 'lax',
@@ -32,6 +33,7 @@ export async function POST(request: NextRequest) {
   })
 
   response.cookies.set('refreshToken', data.result.token.refreshToken, {
+    httpOnly: true,
     secure: true,
     path: '/',
     sameSite: 'lax',

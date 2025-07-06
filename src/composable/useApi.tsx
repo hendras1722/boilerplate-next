@@ -44,20 +44,18 @@ export function useApi<TResponse, TBody = unknown>(
   const queryClient = useQueryClient()
   const key = queryKey || urlToQueryKey(url)
 
-  if (method === 'GET') {
-    return useQuery<TResponse, Error>({
-      queryKey: key,
-      queryFn: async () => {
-        const res = await api.get(url)
-        return res.data
-      },
-      enabled,
-      staleTime,
-      refetchOnWindowFocus: autoRefetchOnWindowFocus,
-    }) as any
-  }
+  const queryResult = useQuery<TResponse, Error>({
+    queryKey: key,
+    queryFn: async () => {
+      const res = await api.get(url)
+      return res.data
+    },
+    enabled: enabled && method === 'GET',
+    staleTime,
+    refetchOnWindowFocus: autoRefetchOnWindowFocus,
+  })
 
-  return useMutation<TResponse, Error, TBody>({
+  const mutationResult = useMutation<TResponse, Error, TBody>({
     mutationFn: async (data) => {
       const payload = data ?? body
       switch (method) {
@@ -80,5 +78,7 @@ export function useApi<TResponse, TBody = unknown>(
     onError: (error: Error) => {
       options.onError?.(error)
     },
-  }) as any
+  })
+
+  return (method === 'GET' ? queryResult : mutationResult) as any
 }

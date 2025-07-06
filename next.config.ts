@@ -7,19 +7,19 @@ const nextConfig: NextConfig = {
       afterFiles: [
         {
           source: '/v1/:path*',
-          destination: 'https://api.nanspace.top/:path*',
+          destination: 'https://auth.syahendra.com/:path*',
         },
       ],
       beforeFiles: [
         {
           source: '/v1/:path*',
-          destination: 'https://api.nanspace.top/:path*',
+          destination: 'https://auth.syahendra.com/:path*',
         },
       ],
       fallback: [
         {
           source: '/v1/:path*',
-          destination: 'https://api.nanspace.top/:path*',
+          destination: 'https://auth.syahendra.com/:path*',
         },
       ],
     }
@@ -33,15 +33,15 @@ const nextConfig: NextConfig = {
   images: {
     domains: ['lh3.googleusercontent.com'],
   },
-  // async redirects() {
-  //   return [
-  //     {
-  //       source: '/',
-  //       destination: '/',
-  //       permanent: true,
-  //     },
-  //   ]
-  // },
+  async redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/admin/inventory',
+        permanent: true,
+      },
+    ]
+  },
   poweredByHeader: false,
   headers: async () => [
     {
