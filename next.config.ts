@@ -8,19 +8,19 @@ const nextConfig: NextConfig = {
       afterFiles: [
         {
           source: '/v1/:path*',
-          destination: 'https://auth.syahendra.com/:path*',
+          destination: 'https://provider.syahendra.com/:path*',
         },
       ],
       beforeFiles: [
         {
           source: '/v1/:path*',
-          destination: 'https://auth.syahendra.com/:path*',
+          destination: 'https://provider.syahendra.com/:path*',
         },
       ],
       fallback: [
         {
           source: '/v1/:path*',
-          destination: 'https://auth.syahendra.com/:path*',
+          destination: 'https://provider.syahendra.com/:path*',
         },
       ],
     }

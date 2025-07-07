@@ -7,7 +7,8 @@ import { useState } from 'react'
 import z from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useRoute } from '@/composable/useRoute'
+// import { useRoute } from '@/composable/useRoute'
+import { useApi } from '@/composable/useApi'
 
 const formSchema = z.object({
   product_name: z.string().min(3, 'Product name must be at least 3 characters'),
@@ -25,9 +26,14 @@ const formSchema = z.object({
 export default function ProductLayout() {
   const [open, setOpen] = useState(false)
 
-  const route = useRoute()
+  // const route = useRoute()
 
-  console.log(route)
+  const { data, isLoading } = useApi<{ name: string }>({
+    url: '/v1/v1/operator/081234567890',
+  })
+  console.log(data, isLoading)
+
+  // console.log(route)
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),

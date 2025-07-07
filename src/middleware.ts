@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { defaultConfig } from '@/configs/config_security'
 // import { SecurityConfig } from "@/type/config_security";
-// import api from './utils/axios'
 
 // config: SecurityConfig
 function setSecurityHeaders(response: NextResponse) {
@@ -47,6 +46,7 @@ export async function middleware(request: NextRequest) {
   const config = defaultConfig
   const response = NextResponse.next()
   const url = new URL(request.url)
+  console.log(url)
 
   // const token = request.cookies.get('token')
   //   const { pathname } = new URL(request.url)

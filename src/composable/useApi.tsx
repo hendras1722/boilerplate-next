@@ -1,4 +1,4 @@
-import api from '@/utils/axios'
+import { useFetch as api } from './useFetch'
 import {
   useQuery,
   useMutation,
@@ -26,7 +26,7 @@ function urlToQueryKey(url: string): string[] {
   return search ? [pathname, search] : [pathname]
 }
 
-export function useApi<TResponse, TBody = unknown>(
+export function useApi<TResponse, TBody = undefined>(
   options: ApiOptions<TResponse, TBody>
 ): TBody extends undefined
   ? UseQueryResult<TResponse, Error>
@@ -39,6 +39,8 @@ export function useApi<TResponse, TBody = unknown>(
     enabled = true,
     autoRefetchOnWindowFocus = false,
     staleTime = 0,
+    onSuccess,
+    onError,
   } = options
 
   const queryClient = useQueryClient()
@@ -47,8 +49,9 @@ export function useApi<TResponse, TBody = unknown>(
   const queryResult = useQuery<TResponse, Error>({
     queryKey: key,
     queryFn: async () => {
-      const res = await api.get(url)
-      return res.data
+      return await api(url, {
+        method: 'GET',
+      })
     },
     enabled: enabled && method === 'GET',
     staleTime,
@@ -58,25 +61,29 @@ export function useApi<TResponse, TBody = unknown>(
   const mutationResult = useMutation<TResponse, Error, TBody>({
     mutationFn: async (data) => {
       const payload = data ?? body
+
       switch (method) {
         case 'POST':
-          return (await api.post(url, payload)).data
         case 'PUT':
-          return (await api.put(url, payload)).data
         case 'PATCH':
-          return (await api.patch(url, payload)).data
+          return await api(url, {
+            method,
+            body: payload as BodyInit | Record<string, any> | null | undefined,
+          })
         case 'DELETE':
-          return (await api.delete(url)).data
+          return await api(url, {
+            method: 'DELETE',
+          })
         default:
           throw new Error(`Unsupported method: ${method}`)
       }
     },
     onSuccess: (data) => {
-      options.onSuccess?.(data)
+      onSuccess?.(data)
       queryClient.invalidateQueries({ queryKey: key })
     },
-    onError: (error: Error) => {
-      options.onError?.(error)
+    onError: (error) => {
+      onError?.(error)
     },
   })
 
