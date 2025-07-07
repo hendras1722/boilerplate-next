@@ -1,4 +1,3 @@
-// utils/api.ts
 import { ofetch, type FetchOptions } from 'ofetch'
 
 export const useFetch = ofetch.create({
@@ -14,6 +13,9 @@ export const useFetch = ofetch.create({
   },
   onResponse({ response }) {
     console.log('[API SUCCESS]', response.url)
+    if (response.status === 401) {
+      throw new Error('Unauthorized')
+    }
     return response._data
   },
   onResponseError({ response }) {
