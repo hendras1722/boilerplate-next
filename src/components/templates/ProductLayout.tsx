@@ -9,6 +9,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 // import { useRoute } from '@/composable/useRoute'
 import { useApi } from '@/composable/useApi'
+import useComputed from '@/composable/useComputed'
 
 const formSchema = z.object({
   product_name: z.string().min(3, 'Product name must be at least 3 characters'),
@@ -78,8 +79,30 @@ export default function ProductLayout() {
       rating: '123',
     },
   ]
+
+  const [params, setParams] = useState({
+    page: 1,
+    limit: 10,
+    search: '',
+  })
+
+  const filterParams = useComputed(() => ({
+    search: params.search,
+  }))
+
+  // child components
+  const handleSearch = useComputed(
+    () => params.search,
+    (newValue) =>
+      setParams((prevState) => ({
+        ...prevState,
+        search: newValue,
+      }))
+  )
+
   return (
     <div>
+      {JSON.stringify(filterParams.value)}
       <Modal setOpen={setOpen} open={open} title="Add Product" contentText="">
         <Box pb={2}>
           <div>
@@ -135,6 +158,7 @@ export default function ProductLayout() {
       <div>
         <Box display={'flex'} justifyContent={'space-between'} mb={5} gap={3}>
           <TextField
+            onChange={(e) => (handleSearch.value = e.target.value)}
             slotProps={{
               input: {
                 startAdornment: (
