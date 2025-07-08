@@ -2,16 +2,16 @@
 import { useMemo, useCallback } from 'react'
 
 // Define the Computed type
-// interface Computed<T> {
-//   readonly value: T
-// }
+export interface Computed<T> {
+  readonly value: T
+}
 
-interface WritableComputed<T> {
+export interface WritableComputed<T> {
   value: T
 }
 
 // Type untuk useComputed hook
-export default function useComputed<T>(
+export function useReactive<T>(
   getter: () => T,
   setter?: (newValue: T) => void
 ): WritableComputed<T> {
@@ -51,22 +51,22 @@ export default function useComputed<T>(
 }
 
 // Read-only computed
-// function useReadonlyComputed<T>(getter: () => T): Computed<T> {
-//   const computedValue = useMemo(() => {
-//     try {
-//       return getter()
-//     } catch (error) {
-//       console.error('Error in computed getter:', error)
-//       return undefined as T
-//     }
-//   }, [getter])
+export function useComputed<T>(getter: () => T): Computed<T> {
+  const computedValue = useMemo(() => {
+    try {
+      return getter()
+    } catch (error) {
+      console.error('Error in computed getter:', error)
+      return undefined as T
+    }
+  }, [getter])
 
-//   return useMemo(
-//     () => ({
-//       get value(): T {
-//         return computedValue
-//       },
-//     }),
-//     [computedValue]
-//   )
-// }
+  return useMemo(
+    () => ({
+      get value(): T {
+        return computedValue
+      },
+    }),
+    [computedValue]
+  )
+}
