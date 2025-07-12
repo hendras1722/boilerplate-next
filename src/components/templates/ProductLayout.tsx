@@ -9,7 +9,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 // import { useRoute } from '@/composable/useRoute'
 import { useApi } from '@/composable/useApi'
-import useComputed from '@/composable/useComputed'
+import { useComputed, useReactive } from '@/composable/useComputed'
 
 const formSchema = z.object({
   product_name: z.string().min(3, 'Product name must be at least 3 characters'),
@@ -91,7 +91,7 @@ export default function ProductLayout() {
   }))
 
   // child components
-  const handleSearch = useComputed(
+  const handleSearch = useReactive(
     () => params.search,
     (newValue) =>
       setParams((prevState) => ({
