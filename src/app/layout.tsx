@@ -5,7 +5,6 @@ import { Roboto } from 'next/font/google'
 import { ThemeProvider } from '@mui/material/styles'
 import theme from '../components/atoms/Theme'
 import { QueryProvider } from '@/components/atoms/ProviderWrapper'
-import AdminLayout from '@/components/templates/AdminLayout'
 
 const roboto = Roboto({
   weight: ['300', '400', '500', '700'],
