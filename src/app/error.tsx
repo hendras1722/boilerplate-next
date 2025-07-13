@@ -6,7 +6,6 @@ export default function ErrorCustom({
   error,
   reset,
 }: Readonly<{ error: Error; reset: () => void }>) {
-  console.log(error.cause, error.stack)
   return (
     <html lang="en">
       <body>

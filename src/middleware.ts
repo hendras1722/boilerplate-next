@@ -46,7 +46,6 @@ export async function middleware(request: NextRequest) {
   const config = defaultConfig
   const response = NextResponse.next()
   const url = new URL(request.url)
-  console.log(url)
 
   // const token = request.cookies.get('token')
   //   const { pathname } = new URL(request.url)

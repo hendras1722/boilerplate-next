@@ -27,14 +27,10 @@ const formSchema = z.object({
 export default function ProductLayout() {
   const [open, setOpen] = useState(false)
 
-  // const route = useRoute()
-
   const { data, isLoading } = useApi<{ name: string }>({
     url: '/v1/v1/operator/081234567890',
   })
   console.log(data, isLoading)
-
-  // console.log(route)
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),

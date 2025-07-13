@@ -15,7 +15,7 @@ export default function ListMenuSidebar({
 }) {
   const pathName = usePathname()
   return (
-    <nav className="!px-2 !py-4 space-y-1">
+    <nav className="!px-2 !py-4 space-y-1 ">
       <div className="space-y-1">
         <If condition={!sidebarCollapsed}>
           <Button
@@ -24,6 +24,13 @@ export default function ListMenuSidebar({
             startIcon={<SquaresExclude />}
             size="small"
             className={`!shadow-none !w-full flex !justify-start`}
+            color={pathName === '/admin/product' ? 'primary' : 'inherit'}
+            classes={{
+              root:
+                pathName === '/admin/product'
+                  ? 'group flex items-center gap-1 !px-3 !py-2 text-sm font-medium rounded-lg transition-colors duration-150 !text-black hover:!bg-primary-600 !text-white'
+                  : '!text-black ',
+            }}
           >
             {!sidebarCollapsed && 'product'}
           </Button>
@@ -39,26 +46,29 @@ export default function ListMenuSidebar({
         </If>
       </div>
 
-      <div
-        onClick={handleLogout}
-        className={
-          pathName === '/logout'
-            ? 'group flex !mb-2 items-center gap-1 !px-3 !py-2 text-sm font-medium rounded-lg transition-colors duration-150 !text-white bg-blue-500 hover:bg-blue-600'
-            : 'group flex items-center gap-1 !px-3 !py-2 text-sm font-medium rounded-lg transition-colors !text-black duration-150 hover:bg-gray-100'
-        }
-      >
-        <LogOut className="w-4 h-4" />
-        {!sidebarCollapsed && (
-          <span
-            className={
-              sidebarCollapsed
-                ? 'lg:opacity-0 lg:w-0 overflow-hidden'
-                : 'opacity-100'
-            }
+      <div className="space-y-1">
+        <If condition={!sidebarCollapsed}>
+          <Button
+            variant={pathName === '/admin/logout' ? 'contained' : 'text'}
+            onClick={handleLogout}
+            startIcon={<LogOut />}
+            size="small"
+            className={`!shadow-none !w-full flex !justify-start`}
+            classes={{
+              root:
+                pathName === '/admin/logout'
+                  ? 'group flex items-center gap-1 !px-3 !py-2 text-sm font-medium rounded-lg transition-colors duration-150 !text-black hover:!bg-primary-600 !text-white'
+                  : '!text-black  !px-3 !py-2',
+            }}
           >
-            Logout
-          </span>
-        )}
+            {!sidebarCollapsed && 'logout'}
+          </Button>
+          <Else key="else-1">
+            <IconButton onClick={handleLogout} aria-label="dashboard">
+              <LogOut />
+            </IconButton>
+          </Else>
+        </If>
       </div>
     </nav>
   )

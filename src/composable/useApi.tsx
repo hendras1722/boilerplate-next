@@ -1,3 +1,5 @@
+import { useQueryEvents } from '@/utils/useQueryEvent'
+import { notify } from './useAlert'
 import { useFetch as api } from './useFetch'
 import {
   useQuery,
@@ -19,6 +21,10 @@ type ApiOptions<TResponse, TBody = unknown> = {
   staleTime?: number
   onSuccess?: (data: TResponse) => void
   onError?: (error: Error) => void
+  retry?: boolean
+  NotifySuccess?: boolean
+  NotifyError?: boolean
+  params?: Record<string, any>
 }
 
 function urlToQueryKey(url: string): string[] {
@@ -41,6 +47,10 @@ export function useApi<TResponse, TBody = undefined>(
     staleTime = 0,
     onSuccess,
     onError,
+    retry = false,
+    NotifySuccess = false,
+    NotifyError = false,
+    params,
   } = options
 
   const queryClient = useQueryClient()
@@ -51,11 +61,25 @@ export function useApi<TResponse, TBody = undefined>(
     queryFn: async () => {
       return await api(url, {
         method: 'GET',
+        params,
       })
     },
     enabled: enabled && method === 'GET',
     staleTime,
     refetchOnWindowFocus: autoRefetchOnWindowFocus,
+    retry: retry,
+  })
+
+  const queryGet = useQueryEvents(queryResult, {
+    onSuccess: (data) => {
+      console.log('✅ success:', data)
+      if (NotifySuccess)
+        notify({ type: 'success', message: 'Successfully submit' })
+    },
+    onError: (error) => {
+      console.error('❌ error:', error)
+      if (NotifyError) notify({ type: 'success', message: error.message })
+    },
   })
 
   const mutationResult = useMutation<TResponse, Error, TBody>({
@@ -79,13 +103,20 @@ export function useApi<TResponse, TBody = undefined>(
       }
     },
     onSuccess: (data) => {
+      if (NotifySuccess)
+        notify({ type: 'success', message: 'Successfully submit' })
       onSuccess?.(data)
       queryClient.invalidateQueries({ queryKey: key })
     },
     onError: (error) => {
+      if (NotifyError) notify({ type: 'success', message: error.message })
       onError?.(error)
     },
   })
 
-  return (method === 'GET' ? queryResult : mutationResult) as any
+  return (
+    method === 'GET' ? queryGet : mutationResult
+  ) as TBody extends undefined
+    ? UseQueryResult<TResponse, Error>
+    : UseMutationResult<TResponse, Error, TBody>
 }
