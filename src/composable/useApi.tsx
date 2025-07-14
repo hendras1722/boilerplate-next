@@ -74,11 +74,16 @@ export function useApi<TResponse, TBody = undefined>(
     onSuccess: (data) => {
       console.log('✅ success:', data)
       if (NotifySuccess)
-        notify({ type: 'success', message: 'Successfully submit' })
+        notify({
+          type: 'success',
+          title: 'Success',
+          message: 'Successfully get data',
+        })
     },
     onError: (error) => {
       console.error('❌ error:', error)
-      if (NotifyError) notify({ type: 'success', message: error.message })
+      if (NotifyError)
+        notify({ type: 'error', title: 'Error', message: error.message })
     },
   })
 
@@ -104,12 +109,17 @@ export function useApi<TResponse, TBody = undefined>(
     },
     onSuccess: (data) => {
       if (NotifySuccess)
-        notify({ type: 'success', message: 'Successfully submit' })
+        notify({
+          type: 'success',
+          title: 'Success',
+          message: 'Successfully fetch data',
+        })
       onSuccess?.(data)
       queryClient.invalidateQueries({ queryKey: key })
     },
     onError: (error) => {
-      if (NotifyError) notify({ type: 'success', message: error.message })
+      if (NotifyError)
+        notify({ type: 'error', title: 'Error', message: error.message })
       onError?.(error)
     },
   })

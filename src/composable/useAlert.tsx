@@ -2,14 +2,15 @@
 
 import React, { useEffect, useState } from 'react'
 import { createRoot } from 'react-dom/client'
-import { Alert, Snackbar } from '@mui/material'
+import { Alert, AlertTitle, Snackbar } from '@mui/material'
 
 type NotifyType = 'success' | 'error' | 'warning' | 'info'
 
 type NotifyOptions = {
   type: NotifyType
   message: string
-  duration?: number // dalam milidetik
+  duration?: number
+  title: string
 }
 
 type QueueItem = Required<NotifyOptions> & {
@@ -59,6 +60,7 @@ function NotificationQueue() {
             variant="filled"
             sx={{ width: '100%', opacity: 0.9 }}
           >
+            <AlertTitle>{item.title}</AlertTitle>
             {item.message}
           </Alert>
         </Snackbar>
@@ -85,7 +87,8 @@ export function notify(options: NotifyOptions) {
     id: idCounter,
     type: options.type,
     message: options.message,
-    duration: options.duration ?? 1000, // default 1 detik
+    duration: options.duration ?? 1000,
+    title: '',
   }
 
   queue.push(item)
