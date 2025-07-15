@@ -10,11 +10,5 @@ export default function RootLayoutAdmin({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  return (
-    <html lang="en" suppressHydrationWarning>
-      <body>
-        <div>{children}</div>
-      </body>
-    </html>
-  )
+  return children
 }

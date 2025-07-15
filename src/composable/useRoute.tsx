@@ -1,14 +1,16 @@
 'use client'
 
 import { usePathname, useParams } from 'next/navigation'
-import { useMemo, useEffect, useState } from 'react'
+import { useEffect } from 'react'
+import { default as ref } from '@/composable/ref'
+import { useComputed } from './useComputed'
 
 export const useRoute = () => {
   const pathname = usePathname()
   const params = useParams()
 
-  const [query, setQuery] = useState<Record<string, string>>({})
-  const [origin, setOrigin] = useState('')
+  const query = ref<Record<string, string>>({})
+  const origin = ref('')
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -17,22 +19,22 @@ export const useRoute = () => {
       urlParams.forEach((value, key) => {
         result[key] = value
       })
-      setQuery(result)
-      setOrigin(window.location.origin)
+      query.value = result
+      origin.value = window.location.origin
     }
-  }, [])
+  }, [pathname, params])
 
-  const asPath = useMemo(() => {
-    const qs = new URLSearchParams(query).toString()
+  const asPath = useComputed(() => {
+    const qs = new URLSearchParams(query.value).toString()
     return qs ? `${pathname}?${qs}` : pathname
-  }, [pathname, query])
+  })
 
   return {
     pathname,
-    query,
+    query: query.value,
     params,
-    asPath,
-    fullPath: `${origin}${asPath}`,
-    origin,
+    asPath: asPath.value,
+    fullPath: `${origin.value}${asPath.value}`,
+    origin: origin.value,
   }
 }

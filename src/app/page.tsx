@@ -10,6 +10,7 @@ export default function Home() {
     notify({
       type: 'error',
       message: 'Terjadi kesalahan!',
+      title: 'Error',
     })
   }
   return (
